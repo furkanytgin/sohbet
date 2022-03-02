@@ -60,12 +60,14 @@ def registerPage(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
+            user.password = user.password
+
             user.save()
             login(request, user)
             return redirect('home')
 
         else:
-            messages.error(request, 'kayıt sırasında bir hata oluştu ')
+            messages.error(request, '  şifre için en az sekiz rakam, harf ve noktalama işareti(! ve & gibi) kullanın.')
 
     context = {
         'form' : form
